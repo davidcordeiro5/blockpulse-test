@@ -1,0 +1,29 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type UserDto {
+  id: String!
+  firstname: String!
+  lastname: String!
+  password: String!
+  email: String!
+  isAdmin: Boolean!
+}
+
+type Query {
+  getUsers: [UserDto!]!
+  getUserById(id: String!): UserDto!
+}
+
+type Mutation {
+  createUser(data: inputUser!): UserDto!
+}
+
+input inputUser {
+  firstname: String!
+  lastname: String!
+  email: String!
+  password: String!
+  isAdmin: Boolean!
+}
