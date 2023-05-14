@@ -11,6 +11,15 @@ type UserDto {
   isAdmin: Boolean!
 }
 
+type UpdateUserDto {
+  id: String!
+  firstname: String!
+  lastname: String!
+  password: String!
+  email: String!
+  isAdmin: Boolean!
+}
+
 type Query {
   getUsers: [UserDto!]!
   getUserById(id: String!): UserDto!
@@ -18,6 +27,7 @@ type Query {
 
 type Mutation {
   createUser(data: inputUser!): UserDto!
+  updateUser(data: inputUpdateUser!): UpdateUserDto!
 }
 
 input inputUser {
@@ -26,4 +36,13 @@ input inputUser {
   email: String!
   password: String!
   isAdmin: Boolean!
+}
+
+input inputUpdateUser {
+  id: String!
+  firstname: String
+  lastname: String
+  email: String
+  password: String
+  isAdmin: Boolean
 }
