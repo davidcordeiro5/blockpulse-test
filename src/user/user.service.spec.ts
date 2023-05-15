@@ -1,20 +1,34 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service';
 import { UserEntity } from './entities/user.entity';
-import { UserResolver } from './user.resolver';
+import { getRepositoryToken } from '@nestjs/typeorm';
+
+const user = new UserEntity();
+user.firstname = 'firstname';
+user.lastname = 'lastname';
+user.email = 'email@email.com';
+user.password = 'password';
+user.isAdmin = true;
 
 describe('UserService', () => {
   let service: UserService;
-  let resolver: UserResolver;
+
+  const mockedGetUsers = {
+    query: jest.fn(() => Promise.resolve(user)),
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [UserEntity],
-      providers: [UserResolver, UserService],
+      providers: [
+        UserService,
+        {
+          provide: getRepositoryToken(UserEntity),
+          useValue: mockedGetUsers,
+        },
+      ],
     }).compile();
 
-    service = module.get<UserService>(UserService);
-    resolver = new UserResolver(service);
+    service = await module.get(UserService);
   });
 
   it('should be defined', () => {
@@ -31,6 +45,6 @@ describe('UserService', () => {
 
     jest.spyOn(service, 'getUsers').mockImplementation(() => user);
 
-    expect(await resolver.getUsers()).toBe(user);
+    expect(service.getUsers()).toBe(user);
   });
 });
