@@ -4,7 +4,7 @@ Test for Blockpluse
 
 ## Installation
 
-Fisrt update for `TypeOrmModule.forRoot` in `app.module.ts` and us your sql data base
+Fisrt update the `TypeOrmModule.forRoot` in `app.module.ts` and us your sql data base
 
 ## Running the app
 
